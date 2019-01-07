@@ -1,35 +1,59 @@
 import React, { Component } from 'react';
-import * as api from './api/api';
+import orderHistory from '../order-history.json';
 import TableRow from './order-history/TableRow';
+import AddToHistory from './order-history/AddToHistory';
 
 export default class OrderHistory extends Component {
   state = {
     orders: null,
   };
 
-  getOrders = () => {
-    api.getOrderHistory().then(data => this.setState({ orders: data }));
+  componentDidMount() {
+    this.getOrders();
+  }
+
+  componentDidUpdate(prevState) {
+    return JSON.stringify(prevState) !== JSON.stringify(this.state);
+  }
+
+  getOrders = () => this.setState({ orders: orderHistory });
+
+  handleDeleteOrderFromHistory = id => {
+    const newOrderHistory = this.state.orders.filter(item => item.id !== id);
+    this.setState({ orders: newOrderHistory });
+  };
+
+  handleAddToHistory = (obj, evt) => {
+    evt.preventDefault();
+    console.log(evt);
+    console.log(obj);
   };
 
   render() {
     const { orders } = this.state;
-    console.log(orders);
     return (
-      <table>
-        <thead>
-          <th>
-            <td>Date</td>
-            <td>Price</td>
-            <td>Deivery address</td>
-            <td>Rating</td>
-          </th>
-        </thead>
-        <tbody>
-          {orders.map(order => (
-            <TableRow item={order} />
-          ))}
-        </tbody>
-      </table>
+      <>
+        <AddToHistory onAdd={this.handleAddToHistory} />
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Price</th>
+              <th>Delivery address</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders &&
+              orders.map(order => (
+                <TableRow
+                  item={order}
+                  deleteRow={this.handleDeleteOrderFromHistory}
+                />
+              ))}
+          </tbody>
+        </table>
+      </>
     );
   }
 }
