@@ -4,7 +4,7 @@ const TableRow = props => {
   const { id, date, price, address, rating } = props.item;
   const { deleteRow } = props;
   return (
-    <tr key={id}>
+    <tr>
       <td>{date}</td>
       <td>{price} $</td>
       <td>{address}</td>

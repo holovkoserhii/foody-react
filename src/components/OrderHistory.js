@@ -23,10 +23,16 @@ export default class OrderHistory extends Component {
     this.setState({ orders: newOrderHistory });
   };
 
-  handleAddToHistory = (obj, evt) => {
+  maxID = arr => arr.reduce((acc, elem) => {
+    return elem.id > acc ? elem.id : acc
+  }, 0);
+
+  handleAddToHistory = (evt, obj) => {
     evt.preventDefault();
-    console.log(evt);
-    console.log(obj);
+    const orders = this.state.orders;
+    orders.push(obj);
+    this.setState({orders: orders});
+    console.log(this.state);
   };
 
   render() {
@@ -45,12 +51,15 @@ export default class OrderHistory extends Component {
           </thead>
           <tbody>
             {orders &&
-              orders.map(order => (
-                <TableRow
-                  item={order}
-                  deleteRow={this.handleDeleteOrderFromHistory}
-                />
-              ))}
+              orders.map(order => {
+                console.log(order);
+                return (
+                  <TableRow key={order.id}
+                    item={order}
+                    deleteRow={this.handleDeleteOrderFromHistory}
+                  />
+                )
+              })}
           </tbody>
         </table>
       </>

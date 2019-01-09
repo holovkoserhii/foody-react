@@ -1,24 +1,37 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const AddToHistory = props => {
-  console.log(props);
-  return (
-    <form>
-      Date: <input type="date" required />
-      <br />
-      Price: <input type="number" placeholder="Enter the price" required />
-      <br />
-      Address: <input type="text" placeholder="Enter the address" required />
-      <br />
-      Rating: <input type="number" placeholder="Enter the rating" required />
-      <br />
-      <button type="submit" onClick={() => props.onAdd({ a: 4 })}>
-        Add to history
+const INITIAL_STATE = {
+    date: "",
+    price: "",
+    address: "",
+    rating: ""
+}
+
+export default class AddToHistory extends Component {
+
+    state = { ...INITIAL_STATE }
+
+    handleChange = evt => {
+        this.setState({[evt.target.name]: evt.target.value});
+    }
+
+    render() {
+        return (
+            <form>
+                Date: <input type="date" name="date" onChange={this.handleChange} required />
+                <br />
+                Price: <input type="number" name="price" placeholder="Enter the price" onChange={this.handleChange} required />
+                <br />
+                Address: <input type="text" name="address" placeholder="Enter the address" onChange={this.handleChange} required />
+                <br />
+                Rating: <input type="number" name="rating" placeholder="Enter the rating" onChange={this.handleChange} required />
+                <br />
+                <button type="submit" onClick={(evt) => this.props.onAdd(evt, this.state)}>
+                    Add to history
       </button>
-      <br />
-      <br />
-    </form>
-  );
-};
-
-export default AddToHistory;
+                <br />
+                <br />
+            </form>
+        );
+    }
+}
