@@ -23,16 +23,20 @@ export default class OrderHistory extends Component {
     this.setState({ orders: newOrderHistory });
   };
 
-  maxID = arr => arr.reduce((acc, elem) => {
-    return elem.id > acc ? elem.id : acc
-  }, 0);
+  maxID = arr => arr.reduce((acc, elem) => elem.id > acc ? elem.id : acc, 0);
+
+  addID = obj => {
+    const newObj = Object.assign({}, obj, {id: this.maxID(this.state.orders) + 1});
+    // obj.id = this.maxID(this.state.orders) + 1;
+    return newObj;
+  }
 
   handleAddToHistory = (evt, obj) => {
     evt.preventDefault();
-    const orders = this.state.orders;
-    orders.push(obj);
+    const { orders } = this.state;
+    console.log(orders);
+    orders.push(this.addID(obj));
     this.setState({orders: orders});
-    console.log(this.state);
   };
 
   render() {

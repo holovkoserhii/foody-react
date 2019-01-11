@@ -9,11 +9,22 @@ const INITIAL_STATE = {
 
 export default class AddToHistory extends Component {
 
-    state = { ...INITIAL_STATE }
+    state = { ...INITIAL_STATE };
 
     handleChange = evt => {
-        this.setState({[evt.target.name]: evt.target.value});
+        this.setState({ [evt.target.name]: evt.target.value });
     }
+
+
+
+    recordOrderAndReset = evt => {
+        this.props.onAdd(evt, this.state);
+        this.reset();
+    };
+
+    reset = () => {
+        this.setState(...INITIAL_STATE);
+    };
 
     render() {
         return (
@@ -26,9 +37,9 @@ export default class AddToHistory extends Component {
                 <br />
                 Rating: <input type="number" name="rating" placeholder="Enter the rating" onChange={this.handleChange} required />
                 <br />
-                <button type="submit" onClick={(evt) => this.props.onAdd(evt, this.state)}>
+                <button type="submit" onClick={evt => this.recordOrderAndReset(evt)}>
                     Add to history
-      </button>
+                </button>
                 <br />
                 <br />
             </form>
