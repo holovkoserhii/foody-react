@@ -15,15 +15,14 @@ export default class AddToHistory extends Component {
         this.setState({ [evt.target.name]: evt.target.value });
     }
 
-
-
     recordOrderAndReset = evt => {
-        this.props.onAdd(evt, this.state);
+        evt.preventDefault();
+        this.props.onAdd({ ...this.state });
         this.reset();
     };
 
     reset = () => {
-        this.setState(...INITIAL_STATE);
+        this.setState({ ...INITIAL_STATE });
     };
 
     render() {
