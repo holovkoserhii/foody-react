@@ -2,18 +2,15 @@ import React, { Component } from 'react';
 import orderHistory from '../order-history.json';
 import TableRow from './order-history/TableRow';
 import AddToHistory from './order-history/AddToHistory';
+import shortid from "shortid";
 
 export default class OrderHistory extends Component {
   state = {
-    orders: null,
+    orders: [],
   };
 
   componentDidMount() {
     this.getOrders();
-  }
-
-  componentDidUpdate(prevState) {
-    return JSON.stringify(prevState) !== JSON.stringify(this.state);
   }
 
   getOrders = () => this.setState({ orders: orderHistory });

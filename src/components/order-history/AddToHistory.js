@@ -27,7 +27,7 @@ export default class AddToHistory extends Component {
 
     render() {
         return (
-            <form>
+            <form onSubmit={evt => this.recordOrderAndReset(evt)}>
                 Date: <input type="date" name="date" onChange={this.handleChange} required />
                 <br />
                 Price: <input type="number" name="price" placeholder="Enter the price" onChange={this.handleChange} required />
@@ -36,9 +36,7 @@ export default class AddToHistory extends Component {
                 <br />
                 Rating: <input type="number" name="rating" placeholder="Enter the rating" onChange={this.handleChange} required />
                 <br />
-                <button type="submit" onClick={evt => this.recordOrderAndReset(evt)}>
-                    Add to history
-                </button>
+                <button>Add to history</button>
                 <br />
                 <br />
             </form>
