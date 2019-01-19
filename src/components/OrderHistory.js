@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import orderHistory from '../order-history.json';
 import TableRow from './order-history/TableRow';
 import AddToHistory from './order-history/AddToHistory';
+import Spinner from "./Spinner";
 import shortid from "shortid";
 
 export default class OrderHistory extends Component {
@@ -10,6 +11,7 @@ export default class OrderHistory extends Component {
   };
 
   componentDidMount() {
+    this.setState({ isLoading: true });
     this.getOrders();
   }
 
@@ -20,17 +22,9 @@ export default class OrderHistory extends Component {
     this.setState({ orders: newOrderHistory });
   };
 
-  maxID = arr => arr.reduce((acc, elem) => elem.id > acc ? elem.id : acc, 0);
-
-  addID = obj => {
-    const newObj = Object.assign({}, obj, { id: this.maxID(this.state.orders) + 1 });
-    // obj.id = this.maxID(this.state.orders) + 1;
-    return newObj;
-  }
-
   handleAddToHistory = (obj) => {
-    const { orders } = this.state;
-    this.setState(prevState => ({ orders: [...prevState.orders, obj] }));
+    const newObj = Object.assign(obj, {id: shortid.generate()});
+    this.setState(prevState => ({ orders: [...prevState.orders, newObj] }));
   };
 
   render() {
@@ -50,7 +44,6 @@ export default class OrderHistory extends Component {
           <tbody>
             {orders &&
               orders.map(order => {
-                console.log(order);
                 return (
                   <TableRow key={order.id}
                     item={order}

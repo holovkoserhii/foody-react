@@ -26,18 +26,22 @@ export default class AddToHistory extends Component {
     };
 
     render() {
+        const { date, price, address, rating } = this.state;
         return (
             <form onSubmit={evt => this.recordOrderAndReset(evt)}>
-                Date: <input type="date" name="date" onChange={this.handleChange} required />
-                <br />
-                Price: <input type="number" name="price" placeholder="Enter the price" onChange={this.handleChange} required />
-                <br />
-                Address: <input type="text" name="address" placeholder="Enter the address" onChange={this.handleChange} required />
-                <br />
-                Rating: <input type="number" name="rating" placeholder="Enter the rating" onChange={this.handleChange} required />
-                <br />
+                <div>
+                    Date: <input type="date" name="date" value={date} onChange={this.handleChange} required />
+                </div>
+                <div>
+                    Price: <input type="number" name="price" value={price} placeholder="Enter the price" onChange={this.handleChange} required />
+                </div>
+                <div>
+                    Address: <input type="text" name="address" value={address} placeholder="Enter the address" onChange={this.handleChange} required />
+                </div>
+                <div>
+                    Rating: <input type="number" name="rating" value={rating} placeholder="Enter the rating" onChange={this.handleChange} required />
+                </div>
                 <button>Add to history</button>
-                <br />
                 <br />
             </form>
         );
