@@ -42,7 +42,7 @@ export default class OrderHistory extends Component {
       .reverse()
       .join('/');
     obj = { ...obj, date: date, price: price + '.00' };
-    const newObj = Object.assign(obj, { id: shortid.generate() });
+    const newObj = { ...obj, id: shortid.generate() };
     this.setState(prevState => ({
       ...prevState,
       orders: [...prevState.orders, newObj],
