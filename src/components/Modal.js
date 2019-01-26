@@ -19,32 +19,40 @@ const styles = {
     padding: 16,
   },
 };
+
 export default class Modal extends Component {
   backdropRef = createRef();
 
-componentDidMount() {
-  window.addEventListener("keydown", this.handleKeyPress);
-}
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyPress);
+  }
 
-componentWillUnmount() {
-  window.removeEventListener("keydown", this.handleKeyPress);
-}
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyPress);
+  }
 
-handleKeyPress = e => {
-  if (e.code !== "Escape") return;
-  this.props.onClose();
-}
+  handleKeyPress = e => {
+    if (e.code !== 'Escape') return;
+    this.props.onClose();
+  };
 
   handleBackdropClick = evt => {
     if (evt.target !== this.backdropRef.current) return;
     this.props.onClose();
-  }
+  };
 
   render() {
-    const { onClose } = this.props;
-    const {date, price, address, rating} = this.props.order;
+    const {
+      onClose,
+      selected: { date, price, address, rating },
+    } = this.props;
+
     return (
-      <div style={styles.backdrop} ref={this.backdropRef} onClick={this.handleBackdropClick}>
+      <div
+        style={styles.backdrop}
+        ref={this.backdropRef}
+        onClick={this.handleBackdropClick}
+      >
         <div style={styles.modal}>
           <h2>Order details</h2>
           <div>
