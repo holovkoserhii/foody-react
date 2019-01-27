@@ -18,7 +18,7 @@
     "lint": "eslint src/**/*.{js,jsx}",
     "lint:fix": "eslint src/**/*.{js,jsx} --fix",
     "lint:format": "prettier src/**/*.{js,jss,css,json} --write",
-    "server": "json-server --watch ./src/order-history.json"
+    "server": "json-server --watch ./src/services/db.json"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -28,5 +28,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "query-string": "^6.2.0"
+  }
 }
